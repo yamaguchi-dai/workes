@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,11 +19,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-Route::group(['prefix' => 'work', 'namespace' => 'Api'], function (\Illuminate\Routing\Router $route) {
-    //勤務開始打刻
-    $route->post('start', 'WorkStartController@store')->name('api_work_start');
-    //勤務終了打刻
-    $route->post('end', 'WorkEndController@store')->name('api_work_end');
+Route::namespace('APi')->group(function (Router $ApiRoute) {
+    $ApiRoute->group(['prefix' => 'work'], function (Router $router) {
+        //勤務開始打刻
+        $router->post('start', 'WorkStartController@store')->name('api_work_start');
+        //勤務終了打刻
+        $router->post('end', 'WorkEndController@store')->name('api_work_end');
+    });
+    $ApiRoute->group(['prefix' => 'break'], function (Router $router) {
+        //勤務開始打刻
+        $router->post('start', 'BreakStartController@store')->name('api_break_start');
+        //勤務終了打刻
+        $router->post('end', 'BreakEndController@store')->name('api_break_end');
+    });
 });
+
 

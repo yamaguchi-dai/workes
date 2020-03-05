@@ -28,6 +28,6 @@ class WorkStartController extends Controller {
         //Tokenが存在しない場合
         if (!$userToken) throw new \Exception('tokenを確認してください。token:' . $token);
         //勤怠打刻
-        return UserWorkTime::start($userToken->user()['id']);
+        return UserWorkTime::work_start($userToken->user()['id']);
     }
 }

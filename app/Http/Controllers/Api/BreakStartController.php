@@ -13,14 +13,7 @@ use App\Models\UserToken;
 use App\Models\UserWorkTime;
 use Illuminate\Http\Request;
 
-class WorkEndController extends Controller {
-
-    /**
-     * 終了打刻
-     * @param Request $request
-     * @return mixed
-     * @throws \Exception
-     */
+class BreakStartController extends Controller {
     function store(Request $request) {
         $token = $request->get('token');
         /** @var UserToken $userToken */
@@ -28,7 +21,8 @@ class WorkEndController extends Controller {
         //Tokenが存在しない場合
         if (!$userToken) throw new \Exception('tokenを確認してください。token:' . $token);
         //勤怠打刻
-        return UserWorkTime::work_end($userToken->user()['id']);
+        return UserWorkTime::break_start($userToken->user()['id']);
+
     }
 
 }
