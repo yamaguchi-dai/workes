@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::namespace('APi')->group(function (Router $ApiRoute) {
+Route::namespace('Api')->group(function (Router $ApiRoute) {
     $ApiRoute->group(['prefix' => 'work'], function (Router $router) {
         //勤務開始打刻
         $router->post('start', 'WorkStartController@store')->name('api_work_start');
