@@ -19,18 +19,31 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::namespace('Api')->group(function (Router $ApiRoute) {
-    $ApiRoute->group(['prefix' => 'work'], function (Router $router) {
+Route::namespace('Api')->group(function (Router $apiRouter) {
+    $apiRouter->group(['prefix' => 'work'], function (Router $router) {
         //勤務開始打刻
         $router->post('start', 'WorkStartController@store')->name('api_work_start');
         //勤務終了打刻
         $router->post('end', 'WorkEndController@store')->name('api_work_end');
     });
-    $ApiRoute->group(['prefix' => 'break'], function (Router $router) {
+    $apiRouter->group(['prefix' => 'break'], function (Router $router) {
         //勤務開始打刻
         $router->post('start', 'BreakStartController@store')->name('api_break_start');
         //勤務終了打刻
         $router->post('end', 'BreakEndController@store')->name('api_break_end');
+    });
+
+
+    $apiRouter->group(['prefix' => 'report'], function (Router $router) {
+        {
+            $router->get('day_summary', function () {
+                return \App\Models\UserWorkTime::getDaysSummary();
+            });
+
+            $router->get('all', function () {
+                return App\Models\UserWorkTime::orderBy('id')->get();
+            });
+        }
     });
 });
 
