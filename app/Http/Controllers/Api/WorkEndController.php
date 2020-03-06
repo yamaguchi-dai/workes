@@ -9,6 +9,7 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\WorkEndRequest;
 use App\Models\UserWorkTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,7 @@ class WorkEndController extends Controller {
      * @return mixed
      * @throws \Exception
      */
-    function store(Request $request) {
+    function store(WorkEndRequest $request) {
         //勤怠打刻
         return UserWorkTime::work_end(Auth::user()['id']);
     }

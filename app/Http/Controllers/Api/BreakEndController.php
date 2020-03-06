@@ -9,12 +9,12 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BreakEndRequest;
 use App\Models\UserWorkTime;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class BreakEndController extends Controller {
-    function store(Request $request) {
+    function store(BreakEndRequest $request) {
         //勤怠打刻
         return UserWorkTime::break_end(Auth::user()['id']);
 
