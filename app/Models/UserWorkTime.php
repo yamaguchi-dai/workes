@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Core\BaseModel;
+use App\Models\DBSelect\WorkTimeDaySummary;
 use Illuminate\Support\Facades\Log;
 
 class UserWorkTime extends BaseModel {
@@ -11,6 +12,8 @@ class UserWorkTime extends BaseModel {
     const WORK_END_TYPE_CD = 2;
     const BREAK_START_TYPE_CD = 3;
     const BREAK_END_TYPE_CD = 4;
+
+    protected $appends = ['work_type'];
 
     /**
      * 勤務開始打刻
@@ -83,6 +86,7 @@ class UserWorkTime extends BaseModel {
      * @return bool TRUE:出勤可能
      */
     static function isWorkStartStatus($user_id): bool {
+        //TODO 今日日付で一回も出勤していないこと
         return self::getLastPunch($user_id) === self::WORK_END_TYPE_CD;
     }
 
@@ -117,5 +121,31 @@ class UserWorkTime extends BaseModel {
         $lastPunchTypeCd = self::getLastPunch($user_id);
         //最終打刻が休入であること
         return $lastPunchTypeCd === self::BREAK_START_TYPE_CD;
+    }
+
+    /**
+     * 打刻タイプの文字列をAttributeに追加
+     * @return string
+     */
+    public function getWorkTypeAttribute() {
+        $punch_type_cd = $this->punch_type_cd;
+        switch ($punch_type_cd) {
+            case self::WORK_START_TYPE_CD:
+                return '出勤';
+            case self::WORK_END_TYPE_CD:
+                return '退勤';
+            case self::BREAK_START_TYPE_CD:
+                return '休入';
+            case self::BREAK_END_TYPE_CD:
+                return '休出';
+        }
+    }
+
+    /**
+     * 一日ごとの集計を取得
+     * @return array
+     */
+    public static function getDaysSummary() {
+        return WorkTimeDaySummary::get();
     }
 }
