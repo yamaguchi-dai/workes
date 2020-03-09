@@ -43,7 +43,7 @@ WITH
     )
 SELECT
     to_char(work_start_time, 'MM')                                                                                            AS month
-    , to_char(work_start_time, 'd')                                                                                           AS day
+    , to_char(work_start_time, 'DD')                                                                                           AS day
     , (ARRAY ['日','月','火','水','木','金','土'])[EXTRACT(DOW FROM CAST(work_start_time AS DATE)) + 1]                              AS week_day
     , to_char(work_start_time, 'HH24:MI')                                                                                     AS work_start_time
     , to_char(work_end_time, 'HH24:MI')                                                                                       AS work_end_time
