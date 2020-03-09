@@ -19,6 +19,9 @@
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', function () {
+    return redirect()->route('login_form');
+});
 Route::group(['namespace' => 'Web'], function (Router $router) {
 
     $router->get('login', 'LoginController@login_form')->name('login_form');
@@ -28,7 +31,7 @@ Route::group(['namespace' => 'Web'], function (Router $router) {
     /**
      * 認証後
      */
-    $router->group(['middleware' => ['auth']], function (Router $router) {
+    $router->group(['middleware' => ['auth', 'view.api_token']], function (Router $router) {
         $router->get('home', function () {
             return view('day_work');
         })->name('home');

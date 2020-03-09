@@ -34,13 +34,15 @@
 
 <script>
     export default {
+
         data() {
             return {
                 work_time_list: []
             }
         },
         mounted() {
-            axios.get('/api/report/day_summary').then(res => this.work_time_list = res.data)
+            console.log(this.props);
+            axios.get('/api/report/day_summary?api_token=' + $('meta[name="api_token"]').attr('content')).then(res => this.work_time_list = res.data)
         }
     }
 </script>
