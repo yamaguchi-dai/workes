@@ -16,8 +16,23 @@
 //});
 
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/day_work', function () {
-    return view('day_work');
+Route::group(['namespace' => 'Web'], function (Router $router) {
+
+    $router->get('login', 'LoginController@login_form')->name('login_form');
+    $router->get('logout', 'LoginController@logout')->name('logout');
+    $router->post('login', 'LoginController@login')->name('login');
+
+    /**
+     * 認証後
+     */
+    $router->group(['middleware' => ['auth']], function (Router $router) {
+        $router->get('home', function () {
+            return view('day_work');
+        })->name('home');
+
+    });
 });
+
