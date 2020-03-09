@@ -151,9 +151,10 @@ class UserWorkTime extends BaseModel {
 
     /**
      * 一日ごとの集計を取得
+     * @param $user_id
      * @return array
      */
-    public static function getDaysSummary() {
-        return WorkTimeDaySummary::get();
+    public static function getDaysSummary($user_id) {
+        return WorkTimeDaySummary::get($user_id);
     }
 }

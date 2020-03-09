@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class WorkTimeDaySummary {
 
-    static function get() {
+    static function get($user_id) {
         return DB::select(
             <<<SQL
 WITH
@@ -26,6 +26,7 @@ WITH
             user_work_times AS start
         WHERE
             punch_type_cd = 1
+        AND user_id = :user_id
         ORDER BY id
         )
     , break AS (
@@ -38,6 +39,7 @@ WITH
         user_work_times AS start
     WHERE
         punch_type_cd = 3
+        AND user_id = :user_id
     )
 SELECT
     to_char(work_start_time, 'MM')                                                                                            AS month
@@ -56,6 +58,6 @@ FROM
         ) AS records
 SQL
 
-        );
+            , ['user_id' => $user_id]);
     }
 }
