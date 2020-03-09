@@ -9,7 +9,7 @@
     <title>アプリ名 - @yield('title')</title>
 
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
+    @include('core.head')
 </head>
 
 <body>

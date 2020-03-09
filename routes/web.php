@@ -36,6 +36,15 @@ Route::group(['namespace' => 'Web'], function (Router $router) {
             return view('day_work');
         })->name('home');
 
+        $router->group(['prefix'=>'user','as'=>'user.'],function(Router $router){
+            //ユーザー情報照会
+
+            //ユーザー情報更新
+
+            //API-Token更新
+
+        });
+
     });
 });
 
