@@ -86,7 +86,15 @@ class UserWorkTime extends BaseModel {
      * @return bool TRUE:出勤可能
      */
     static function isWorkStartStatus($user_id): bool {
-        //TODO 今日日付で一回も出勤していないこと
+        //今日日付で一回も出勤していないこと
+        $toDayWorkStartCnt = UserWorkTime::whereRaw(" to_char(punch_date_time,'YYYYMMDD') = to_char(now(),'YYYYMMDD')")
+            ->where('punch_type_cd', self::WORK_START_TYPE_CD)
+            ->where('user_id', $user_id)
+            ->get()->count();
+        if ($toDayWorkStartCnt !== 0) {
+            Log::error('既に出勤済みのため打刻できません');
+            return FALSE;
+        }
         return self::getLastPunch($user_id) === self::WORK_END_TYPE_CD;
     }
 
