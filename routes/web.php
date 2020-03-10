@@ -36,8 +36,9 @@ Route::group(['namespace' => 'Web'], function (Router $router) {
             return view('day_work');
         })->name('home');
 
-        $router->group(['prefix'=>'user','as'=>'user.'],function(Router $router){
+        $router->group(['namespace' => 'User', 'prefix' => 'user', 'as' => 'user.'], function (Router $router) {
             //ユーザー情報照会
+            $router->get('info', 'UserController@show')->name('info');
 
             //ユーザー情報更新
 

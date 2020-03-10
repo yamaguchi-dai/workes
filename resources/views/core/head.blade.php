@@ -7,10 +7,10 @@
     <div class="collapse navbar-collapse" id="Navber">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">ホーム <span class="sr-only">(現位置)</span></a>
+                <a class="nav-link" href="{{route('home')}}">ホーム <span class="sr-only">(現位置)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">リンク</a>
+                <a class="nav-link" href="{{route('user.info')}}">アカウント</a>
             </li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
