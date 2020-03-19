@@ -155,6 +155,6 @@ class UserWorkTime extends BaseModel {
      * @return array
      */
     public static function getDaysSummary($user_id) {
-        return WorkTimeDaySummary::get($user_id);
+        return WorkTimeDaySummary::get(date('Y-m'), $user_id);
     }
 }
