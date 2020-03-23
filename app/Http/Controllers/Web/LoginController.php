@@ -28,6 +28,7 @@ class LoginController extends Controller {
      */
     function logout() {
         Auth::logout();
+        view_info('ログアウトしました。');
         return redirect()->route('login_form');
     }
 
