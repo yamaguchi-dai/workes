@@ -28,6 +28,13 @@ Route::group(['namespace' => 'Web'], function (Router $router) {
     $router->get('logout', 'LoginController@logout')->name('logout');
     $router->post('login', 'LoginController@login')->name('login');
 
+    //ユーザー登録
+    $router->group(['namespace' => 'User', 'prefix' => 'user_register', 'as' => 'user.register.'], function (Router $router) {
+        $router->get('/', 'RegisterController@index')->name('index');
+        $router->post('registration', 'RegisterController@registration')->name('registration');
+    });
+
+
     /**
      * 認証後
      */

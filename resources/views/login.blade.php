@@ -18,6 +18,13 @@
                     <input type="password" class="form-control" name="password" placeholder="">
                 </div>
                 <button type="submit" class="btn btn-primary">ログイン</button>
+                <div class="row">
+                    <div class="col-12 clearfix">
+                        <div class="float-right">
+                            <a class="float-right" href="{{route('user.register.index')}}">新規登録</a>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
