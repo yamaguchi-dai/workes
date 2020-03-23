@@ -43,7 +43,8 @@ class LoginController extends Controller {
             // 認証に成功した
             return redirect()->route('home');
         }
-        return back()->withInput();
+
+        return back()->withInput()->withErrors(['認証失敗']);
     }
 
 }

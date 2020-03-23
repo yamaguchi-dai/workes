@@ -11,7 +11,9 @@ namespace App\Http\Controllers\Web\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRegisterRequest;
 use App\Models\User;
+use App\Models\UserToken;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller {
 
@@ -29,11 +31,20 @@ class RegisterController extends Controller {
      * @return string
      */
     function registration(UserRegisterRequest $request) {
-        (new User())->fill([
+        $user = new User();
+        $user->fill([
             'name' => $request->get('user_name')
             , 'email' => $request->get('email')
             , 'password' => Hash::make($request->get('password'))
         ])->save();
+
+
+        $userToken = (new UserToken());
+        $userToken->fill([
+                'user_id' => $user['id']
+                , 'token' => Str::random(12)
+            ]
+        )->save();
 
 
         view_info('登録が完了しました。');
